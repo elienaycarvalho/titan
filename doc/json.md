@@ -71,11 +71,13 @@ It has the following input/output methods:
 ```pascal
 var
   Json : TJson;
-begin  
-  Json.LoadFromFile(Filename)
-  Json.LoadFromStream(Stream)
-  Json.SaveToFile(Filename)
-  Json.SaveToStream(Filename)
+begin
+  {file}
+  Json.LoadFromFile(Filename);
+  Json.SaveToFile(Filename);  
+  {stream}
+  Json.LoadFromStream(Stream);
+  Json.SaveToStream(Stream);
 ```
 
 #### Accessing properties
