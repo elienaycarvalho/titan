@@ -72,6 +72,8 @@ type
 
 ## TJson
 
+See at the end of this documentation, a complete example of using the `TJson` class.
+
 The `TJson` class has the following constructors:
 ```pascal
 var
@@ -84,16 +86,17 @@ begin
 It has the following input/output methods:
 ```pascal
   {file}
-  function FromFile(const Filename : string) : boolean;
-  function ToFile(Filename) : boolean;
+  function FromFile(Filename : string) : boolean;
+  function ToFile(Filename : string) : boolean;
   {stream}
-  function FromStream(Stream) : boolean;
-  function ToStream(Stream) : boolean;
+  function FromStream(Stream : TStream) : boolean;
+  function ToStream(Stream : TStream) : boolean;
   {console}
   procedure Dump;
   {string}
-  Json := TJson.Create(payload);
-  Str := Json.ToString;
+  constructor Create(Argument : string);
+  function ToString : string;
+  function Stringify(JsonFormat : TJsonStdFormat = jsPretty) : string;
 ```
 
 #### Accessing properties
