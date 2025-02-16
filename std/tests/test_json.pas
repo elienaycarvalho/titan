@@ -117,6 +117,25 @@ begin
   Str := Json.ToString;
   Writeln(Str);
   Json.Free;
+  {strinfigy}
+  Writeln;
+  Json := TJson.Create('{"name": "std.json", "backends": ["LGenerics", "JsonTools"]}');  
+  Writeln('jfPretty flag');
+  Writeln(Json.FormatJson);
+  Str := Json.Stringify(jfPretty);  //formated json    
+  //Writeln(Str);
+
+  Writeln;
+  Writeln('jfCompact flag');
+  Str := Json.Stringify(jfCompact); // compact json
+  Writeln(Str);
+
+  Writeln;
+  Writeln('default flag');
+  Str := Json.Stringify;            // default is pretty
+  Writeln(Str);
+  Writeln;
+  Json.Free;
 end;
 
 begin   

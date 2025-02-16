@@ -1,5 +1,5 @@
-{.$define STD_JSON_FROM_LGENERICS}
-{$define STD_JSON_FROM_JSONTOLS}
+{$define STD_JSON_FROM_LGENERICS}
+{.$define STD_JSON_FROM_JSONTOLS}
 
 {$ifndef STD_JSON_FROM_LGENERICS}
   {$ifndef STD_JSON_FROM_JSONTOLS}
@@ -33,7 +33,8 @@ type
       function ToFile(const Filename : string) : boolean;      
       function FromStream(const Stream : TStream) : boolean;
       function ToStream(const Stream : TStream) : boolean;      
-      function Dump : TJson;
+      function Dump : TJson;      
+      function Stringify(const JsonFormat : TJsonStdFormat = jfPretty) : string;
     //////////////////////////////
     public
       function Push : TJson; overload;
@@ -289,6 +290,16 @@ begin
   end
   else begin
     Writeln('Error');
+  end;
+end;
+
+{lgenerics}
+function TJsonPrototype.Stringify(const JsonFormat : TJsonStdFormat = jfPretty) : string;
+begin
+  if JsonFormat = jfPretty then begin
+    Result := FormatJson
+  end else begin
+    Result := AsJson;
   end;
 end;
 
