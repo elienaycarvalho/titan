@@ -56,7 +56,16 @@ begin
 end;
 ```
 
+## TJson
 
+A classe TJson possui os seguintes construtores:
+```pascal
+var
+  Json : TJson;
+begin
+  Json := TJson.Create;
+  Json := TJson.Create('{"json": "string"}); 
+```
 
 #### Accessing properties
 
