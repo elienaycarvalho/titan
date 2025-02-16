@@ -85,12 +85,12 @@ It has the following input/output methods:
 ```pascal
   {file}
   function FromFile(const Filename : string) : boolean;
-  Json.ToFile(Filename);  
+  function ToFile(Filename) : boolean;
   {stream}
-  Json.FromStream(Stream);
-  Json.ToStream(Stream);
+  function FromStream(Stream) : boolean;
+  function ToStream(Stream) : boolean;
   {console}
-  Json.Dump;
+  procedure Dump;
   {string}
   Json := TJson.Create(payload);
   Str := Json.ToString;
