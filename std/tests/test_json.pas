@@ -26,36 +26,39 @@ end;
 
 procedure DoJsonProps;
 var
-  Json, A, O, AA, AO, OA, OO : TJson;
+  Json, Arr, Obj, AA, AO, OA, OO : TJson;
 begin
   Json := TJson.Create;
-  Json
-    .Prop('null')
-    .Prop('false', false)
-    .Prop('true', true)
-    .Prop('magic', 142857)
-    .Prop('pi', 3.14)
-    .Prop('string', 'std.json: A standart unit for json in Free Pascal');
-  A := Json.Prop('array', jsArray);    
-  A.Push
-    .Push(false)
-    .Push(true)
-    .Push(142857)
-    .Push(3.14)
-    .Push('std.json: A standart unit for json in Free Pascal');
-  AA := A.Push(jsArray);
-  AO := A.Push(jsObject);        
+
+  Json.Prop('null');
+  Json.Prop('false', false);
+  Json.Prop('true', true);
+  Json.Prop('magic', 142857);
+  Json.Prop('pi', 3.14);
+  Json.Prop('string', 'std.json: A standart unit for json in Free Pascal');
+
+  Arr := Json.Prop('array', jsArray);    
+  Arr.Push;
+  Arr.Push(false);
+  Arr.Push(true);
+  Arr.Push(142857);
+  Arr.Push(3.14);
+  Arr.Push('std.json: A standart unit for json in Free Pascal');
+  AA := Arr.Push(jsArray);
+  AO := Arr.Push(jsObject);        
     
-  O := Json.Prop('object', jsObject);
-  O.Prop('hello', 'world')
-    .Prop('null')
-    .Prop('false', false)
-    .Prop('true', true)
-    .Prop('magic', 142857)
-    .Prop('pi', 3.14)
-    .Prop('string', 'std.json: A standart unit for json in Free Pascal');
-  OA := O.Prop('array', jsArray);
-  OO := O.Prop('object', jsObject);
+  Obj := Json.Prop('object', jsObject);
+  Obj.Prop('hello', 'world');
+  Obj.Prop('null');
+  Obj.Prop('false', false);
+  Obj.Prop('true', true);
+  Obj.Prop('magic', 142857);
+  Obj.Prop('pi', 3.14);
+  Obj.Prop('string', 'std.json: A standart unit for json in Free Pascal');
+
+  OA := Obj.Prop('array', jsArray);
+  OO := Obj.Prop('object', jsObject);
+
   Json.Dump;
   Json.Destroy;
 end;
@@ -107,41 +110,19 @@ begin
   Json.Free;  
   Target.Free;
   Source.Free;
-  {console}
+  {console and string}
   Json := TJson.Create;
   Json.FromFile('source.json');
-  Json.Dump;
-  Json.Free;
-  {string}
-  Json := TJson.Create('{"name": "std.json", "backends": ["LGenerics", "JsonTools"]}');
-  Str := Json.ToString;
-  Writeln(Str);
-  Json.Free;
-  {strinfigy}
-  Writeln;
-  Json := TJson.Create('{"name": "std.json", "backends": ["LGenerics", "JsonTools"]}');  
-  Writeln('jfPretty flag');
-  Writeln(Json.FormatJson);
-  Str := Json.Stringify(jfPretty);  //formated json    
-  //Writeln(Str);
-
-  Writeln;
-  Writeln('jfCompact flag');
-  Str := Json.Stringify(jfCompact); // compact json
-  Writeln(Str);
-
-  Writeln;
-  Writeln('default flag');
-  Str := Json.Stringify;            // default is pretty
-  Writeln(Str);
-  Writeln;
+  Json.Dump;              // to console (formated)
+  Str := Json.AsPretty;   // to string (formated)
+  Str := Json.AsCompact;  // to string (compact)
   Json.Free;
 end;
 
 begin   
   //CreatingJson;
   //CreatingJsonByString;
-  //DoJsonProps;
+  DoJsonProps;
   //DoJsonBuilder;
-  DoJsonInputOutput;
+  //DoJsonInputOutput;
 end.

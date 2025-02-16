@@ -3,5 +3,16 @@
   "backends": [
     "lgenerics",
     "jsontools"
-  ]
+  ],
+  "tree": {
+    "a": {
+      "b": {
+        "c": {
+          "d": {
+            "e": "abcde"
+          }
+        }
+      }
+    }
+  }
 }

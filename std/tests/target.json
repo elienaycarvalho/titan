@@ -1,1 +1,18 @@
-{"name":"std.json","backends":["lgenerics","jsontools"]}
+{
+	"name": "std.json",
+	"backends": [
+		"lgenerics",
+		"jsontools"
+	],
+	"tree": {
+		"a": {
+			"b": {
+				"c": {
+					"d": {
+						"e": "abcde"
+					}
+				}
+			}
+		}
+	}
+}

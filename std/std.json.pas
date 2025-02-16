@@ -1,5 +1,5 @@
-{$define STD_JSON_FROM_LGENERICS}
-{.$define STD_JSON_FROM_JSONTOLS}
+{.$define STD_JSON_FROM_LGENERICS}
+{$define STD_JSON_FROM_JSONTOLS}
 
 {$ifndef STD_JSON_FROM_LGENERICS}
   {$ifndef STD_JSON_FROM_JSONTOLS}
@@ -33,8 +33,9 @@ type
       function ToFile(const Filename : string) : boolean;      
       function FromStream(const Stream : TStream) : boolean;
       function ToStream(const Stream : TStream) : boolean;      
-      function Dump : TJson;      
-      function Stringify(const JsonFormat : TJsonStdFormat = jfPretty) : string;
+      function Dump : TJson;            
+      function AsCompact : string;
+      function AsPretty : string;
     //////////////////////////////
     public
       function Push : TJson; overload;
@@ -84,7 +85,9 @@ type
       function ToFile(const Filename : string) : boolean;      
       function FromStream(const Stream : TStream) : boolean;
       function ToStream(const Stream : TStream) : boolean;
-      function Dump : TJson;      
+      function AsCompact : string;
+      function AsPretty : string;
+      function Dump : TJson;                  
     public
       function Push : TJson; overload;
       function Push(const Value : boolean) : TJson; overload;
@@ -106,7 +109,7 @@ type
       Containers : string;
     public
       constructor Create;
-      destructor Destroy; override;
+      destructor Destroy; override;      
       procedure Dump;
     public
       function InitObject : TJsonBuilder;
@@ -294,13 +297,15 @@ begin
 end;
 
 {lgenerics}
-function TJsonPrototype.Stringify(const JsonFormat : TJsonStdFormat = jfPretty) : string;
+function TJsonPrototype.AsCompact : string;
 begin
-  if JsonFormat = jfPretty then begin
-    Result := FormatJson
-  end else begin
-    Result := AsJson;
-  end;
+  Result := JsonStrToPas(AsJson);
+end;
+
+{lgenerics}
+function TJsonPrototype.AsPretty : string;
+begin
+  Result := JsonStrToPas(FormatJson);
 end;
 
 {lgenerics}
@@ -477,6 +482,18 @@ begin
   except
     Result := false;
   end;
+end;
+
+{jsontools}
+function TJsonPrototype.AsCompact : string;
+begin
+  Result := AsJson;
+end;
+
+{jsontools}
+function TJsonPrototype.AsPretty : string;
+begin
+  Result := Value;
 end;
 
 {jsontools}
