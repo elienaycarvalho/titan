@@ -92,6 +92,8 @@ begin
   {stream}
   Json.LoadFromStream(Stream);
   Json.SaveToStream(Stream);
+  {console}
+  Json.Dump;
 ```
 
 #### Accessing properties
