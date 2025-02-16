@@ -58,13 +58,24 @@ end;
 
 ## TJson
 
-A classe TJson possui os seguintes construtores:
+The `TJson` class has the following constructors:
 ```pascal
 var
   Json : TJson;
 begin
   Json := TJson.Create;
   Json := TJson.Create('{"json": "string"}); 
+```
+
+It has the following input/output methods:
+```pascal
+var
+  Json : TJson;
+begin  
+  Json.LoadFromFile(Filename)
+  Json.LoadFromStream(Stream)
+  Json.SaveToFile(Filename)
+  Json.SaveToStream(Filename)
 ```
 
 #### Accessing properties
