@@ -1,5 +1,5 @@
-{$define STD_JSON_FROM_LGENERICS}
-{.$define STD_JSON_FROM_JSONTOLS}
+{.$define STD_JSON_FROM_LGENERICS}
+{$define STD_JSON_FROM_JSONTOLS}
 
 {$ifndef STD_JSON_FROM_LGENERICS}
   {$ifndef STD_JSON_FROM_JSONTOLS}
@@ -29,6 +29,10 @@ type
   TJson = lgjson.TJsonNode;
   TJsonPrototype = type helper for TJson
     public
+      function FromFile(const Filename : string) : boolean;
+      function ToFile(const Filename : string) : boolean;      
+      function FromStream(const Stream : TStream) : boolean;
+      function ToStream(const Stream : TStream) : boolean;      
       function Dump : TJson;
     //////////////////////////////
     public
@@ -54,6 +58,7 @@ type
     public
       constructor Create;
       destructor Destroy; override;
+      //function FromFile(const Filename : string) : boolean;
       procedure Dump;
     public
       function InitObject : TJsonBuilder;
@@ -74,6 +79,10 @@ type
     public
       constructor Create;
       constructor Create(const Argument : string);
+      function FromFile(const Filename : string) : boolean;
+      function ToFile(const Filename : string) : boolean;      
+      function FromStream(const Stream : TStream) : boolean;
+      function ToStream(const Stream : TStream) : boolean;
       function Dump : TJson;      
     public
       function Push : TJson; overload;
@@ -118,6 +127,58 @@ type
 implementation
 
 {$ifdef STD_JSON_FROM_LGENERICS}
+
+{lgenerics}
+function TJsonPrototype.FromFile(const Filename : string) : boolean;
+begin
+  if not FileExists(Filename) then Exit(False);
+  try
+    Result := TryParseFile(Filename);
+  except
+    Result := false;
+  end;
+end;
+
+{lgenerics}
+function TJsonPrototype.ToFile(const Filename : string) : boolean;
+begin  
+  try
+    SaveToFile(Filename);
+    Result := true;
+  except
+    Result := false;
+  end;
+end;
+
+{lgenerics}
+function TJsonPrototype.FromStream(const Stream : TStream) : boolean;
+var
+  StringStream : TStringStream;
+begin  
+  try
+    StringStream := TStringStream.Create('');
+    try
+      StringStream.CopyFrom(Stream, Stream.Size);
+      StringStream.Position := 0;      
+      Result := TryParse(StringStream.DataString);    
+    finally
+      StringStream.Free;
+    end;    
+  except
+    Result := false;
+  end;
+end;
+
+{lgenerics}
+function TJsonPrototype.ToStream(const Stream : TStream) : boolean;
+begin  
+  try
+    SaveToStream(Stream);
+    Result := true;
+  except
+    Result := false;
+  end;
+end;
 
 {lgenerics}
 function TJsonPrototype.Push : TJson;
@@ -360,6 +421,51 @@ constructor TJsonPrototype.Create(const Argument : string);
 begin
   inherited Create;
   Self.Value := Argument;
+end;
+
+{jsontools}
+function TJsonPrototype.FromFile(const Filename : string) : boolean;
+begin
+  if not FileExists(Filename) then Exit(False);
+  try
+    LoadFromFile(Filename);
+    Result := True;
+  except
+    Result := False;
+  end;
+end;
+
+{jsontools}
+function TJsonPrototype.ToFile(const Filename : string) : boolean;
+begin  
+  try
+    SaveToFile(Filename);
+    Result := true;
+  except
+    Result := false;
+  end;
+end;
+
+{jsontools}
+function TJsonPrototype.FromStream(const Stream : TStream) : boolean;
+begin
+  try
+    LoadFromStream(Stream);
+    Result := true;
+  except
+    Result := false;
+  end;
+end;
+
+{jsontools}
+function TJsonPrototype.ToStream(const Stream : TStream) : boolean;
+begin  
+  try
+    SaveToStream(Stream);
+    Result := true;
+  except
+    Result := false;
+  end;
 end;
 
 {jsontools}

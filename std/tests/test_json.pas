@@ -87,9 +87,42 @@ begin
   Json.Destroy;
 end;
 
+procedure DoJsonInputOutput;
+var
+  Json : TJson;
+  Source, Target : TStream;
+  Str : string;
+begin
+  {file}  
+  Json := TJson.Create;
+  Json.FromFile('source.json');
+  Json.ToFile('target.json');  
+  Json.Free;
+  {stream}
+  Source := TFileStream.Create('source.json', fmOpenRead);
+  Target := TFileStream.Create('target.json', fmCreate or fmOpenWrite); 
+  Json := TJson.Create;
+  Json.FromStream(Source);  
+  Json.ToStream(Target);
+  Json.Free;  
+  Target.Free;
+  Source.Free;
+  {console}
+  Json := TJson.Create;
+  Json.FromFile('source.json');
+  Json.Dump;
+  Json.Free;
+  {string}
+  Json := TJson.Create('{"name": "std.json", "backends": ["LGenerics", "JsonTools"]}');
+  Str := Json.ToString;
+  Writeln(Str);
+  Json.Free;
+end;
+
 begin   
-  CreatingJson;
-  CreatingJsonByString;
-  DoJsonProps;
-  DoJsonBuilder;
+  //CreatingJson;
+  //CreatingJsonByString;
+  //DoJsonProps;
+  //DoJsonBuilder;
+  DoJsonInputOutput;
 end.

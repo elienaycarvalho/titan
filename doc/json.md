@@ -83,17 +83,17 @@ begin
 
 It has the following input/output methods:
 ```pascal
-var
-  Json : TJson;
-begin
   {file}
-  Json.LoadFromFile(Filename);
-  Json.SaveToFile(Filename);  
+  function FromFile(const Filename : string) : boolean;
+  Json.ToFile(Filename);  
   {stream}
-  Json.LoadFromStream(Stream);
-  Json.SaveToStream(Stream);
+  Json.FromStream(Stream);
+  Json.ToStream(Stream);
   {console}
   Json.Dump;
+  {string}
+  Json := TJson.Create(payload);
+  Str := Json.ToString;
 ```
 
 #### Accessing properties
@@ -146,3 +146,51 @@ end;
 ### Why Use std.json?
 By using `std.json`, developers can switch between JSON libraries without modifying their code, ensuring greater flexibility and long-term maintainability. It also simplifies JSON operations by providing a clear and unified API.
 
+## Full example
+```pascal
+program test_std_json;
+
+{$mode objfpc}{$h+}{$j-}
+
+uses
+  SysUtils,
+  Classes,
+  std.json;
+
+procedure DoJsonInputOutput;
+var
+  Json : TJson;
+  Source, Target : TStream;
+  Str : string;
+begin
+  {file}  
+  Json := TJson.Create;
+  Json.FromFile('source.json');
+  Json.ToFile('target.json');  
+  Json.Free;
+  {stream}
+  Source := TFileStream.Create('source.json', fmOpenRead);
+  Target := TFileStream.Create('target.json', fmCreate or fmOpenWrite); 
+  Json := TJson.Create;
+  Json.FromStream(Source);  
+  Json.ToStream(Target);
+  Json.Free;  
+  Target.Free;
+  Source.Free;
+  {console}
+  Json := TJson.Create;
+  Json.FromFile('source.json');
+  Json.Dump;
+  Json.Free;
+  {string}
+  Json := TJson.Create('{"name": "std.json", "backends": ["LGenerics", "JsonTools"]}');
+  Str := Json.ToString;
+  Writeln(Str);
+  Json.Free;
+end;
+
+begin
+  DoJsonInputOutput;
+  Writeln('Done!');
+end.
+```

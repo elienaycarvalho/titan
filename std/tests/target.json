@@ -1,0 +1,7 @@
+{
+	"name": "std.json",
+	"backends": [
+		"lgenerics",
+		"jsontools"
+	]
+}
