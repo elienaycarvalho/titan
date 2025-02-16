@@ -23,6 +23,7 @@ uses
 
 type
   TJsonStdKind = (jsNull, jsBoolean, jsNumber, jsString, jsArray, jsObject);
+  TJsonStdFormat = (jfCompact, jfPretty);
 
   {$ifdef STD_JSON_FROM_LGENERICS}
   TJson = lgjson.TJsonNode;

@@ -56,6 +56,20 @@ begin
 end;
 ```
 
+## Types
+
+The `std.json` unit has the following data types:
+
+```pascal
+type
+  TJson = class;
+  TJsonBuilder = class;
+
+  TJsonStdKind = (jsNull, jsBoolean, jsNumber, jsString, jsArray, jsObject);
+  TJsonStdFormat = (jfCompact, jfPretty);
+```
+
+
 ## TJson
 
 The `TJson` class has the following constructors:
