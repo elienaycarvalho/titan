@@ -15,10 +15,10 @@ The `std.json` unit is part of the Titan library. To use it, include it in your 
 uses std.json;
 ```
 
-## Choosing the backend
-Use the directive `{$define STD_JSON_FROM_LGENERICS}` to use the LGenerics.Json library.
-Use the directive `{$define STD_JSON_FROM_JSONTOOLS}` to use the JsonTools library.
-If none of these directives are defined, the backend used will be FPJson, which is still under development.
+### Choosing the backend
+- Use the directive `{$define STD_JSON_FROM_LGENERICS}` to use the LGenerics.Json library.
+- Use the directive `{$define STD_JSON_FROM_JSONTOOLS}` to use the JsonTools library.
+- If none of these directives are defined, the backend used will be FPJson, which is still under development.
 
 #### Creating JSON
 The most straightforward way to create a JSON:
