@@ -14,13 +14,6 @@ Titan aims to be a frontend library that seamlessly integrates multiple other li
 - **Flexible Parsing and Serialization**: Supports reading and writing JSON with minimal effort.
 - **Compatibility**: Ensures interoperability between different JSON implementations without requiring changes in user code.
 
-### Usage
-The `std.json` unit is part of the Titan library. To use it, include it in your project:
-
-```pascal
-uses std.json;
-```
-
 ### Documentation
 For detailed documentation on `std.json`, please refer to the [JSON Documentation](doc/json.md).
 
