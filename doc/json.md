@@ -20,7 +20,7 @@ uses std.json;
 - Use the directive `{$define STD_JSON_FROM_JSONTOOLS}` to use the JsonTools library.
 - If none of these directives are defined, the backend used will be FPJson, which is still under development.
 
-#### Creating JSON
+### Creating JSON
 The most straightforward way to create a JSON:
 
 ```pascal
@@ -42,6 +42,21 @@ begin
   Json.Free;
 end;
 ```
+
+### Creating JsonBuilder
+
+The `JsonBuilder` class offers an easy way to write JSON.
+
+```pascal
+var
+  Json : TJsonBuilder;
+begin
+  Json := TJsonBuilder.Create;
+  Json.Free;
+end;
+```
+
+
 
 #### Accessing properties
 
